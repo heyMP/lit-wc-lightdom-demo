@@ -1,0 +1,21 @@
+diff --git a/node_modules/@lit/reactive-element/development/css-tag.js b/node_modules/@lit/reactive-element/development/css-tag.js
+index 413d52a..65543bc 100644
+--- a/node_modules/@lit/reactive-element/development/css-tag.js
++++ b/node_modules/@lit/reactive-element/development/css-tag.js
+@@ -114,7 +114,15 @@ export const adoptStyles = (renderRoot, styles) => {
+                 style.setAttribute('nonce', nonce);
+             }
+             style.textContent = s.cssText;
+-            renderRoot.appendChild(style);
++           /**
++            * Added the ability to adopt styles to a document or document-fragment that doesn't supportsAdoptingStyleSheets
++            */
++            if (typeof renderRoot.body !== 'undefined') {
++              renderRoot.head.appendChild(style);
++            }
++            else {
++              renderRoot.appendChild(style);
++            }
+         });
+     }
+ };

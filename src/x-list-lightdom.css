@@ -1,0 +1,42 @@
+x-list,
+:host(x-list) {
+  display: flex;
+  background: rgba(0,0,0, 0.1);
+}
+
+x-list :host(x-list) ul,
+:host(x-list) ::slotted(ul) {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  list-style-type: none;
+  align-items: center;
+}
+
+x-list li,
+:host(x-list) li {
+  display: contents;
+}
+
+x-list a,
+:host(x-list) a {
+  color: black !important;
+}
+
+x-list a::before,
+:host(x-list) a::before {
+  display: inline-block;
+  padding-right: .5rem;
+}
+
+x-list [done] a,
+:host(x-list) [done] a {
+  color: green !important;
+}
+
+x-list [done] a::before,
+:host(x-list) [done] a::before {
+  content: '✅';
+}
