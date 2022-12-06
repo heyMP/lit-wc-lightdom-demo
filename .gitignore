@@ -23,6 +23,9 @@
 /**/*.d.ts
 /**/*.js
 /**/*.js.map
+tsconfig.tsbuildinfo
+
+!rollup.config.js
 
 storybook-static
 custom-elements.json
