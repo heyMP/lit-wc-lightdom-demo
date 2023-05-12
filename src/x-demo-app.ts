@@ -1,4 +1,4 @@
-import { html, css, LitElement } from 'lit';
+import { html, css, LitElement, adoptStyles } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 import './x-list.js';
 

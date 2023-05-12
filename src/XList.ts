@@ -1,9 +1,10 @@
-import { html, LitElement, adoptStyles, PropertyValues } from 'lit';
+import { html, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 // @ts-ignore
-import lightdomStyles from './x-list-lightdom.css';
+import lightdomStyles from './x-list-lightdom.css' assert { type: 'css'};
 
 export class XList extends LitElement {
+  static tag = `x-list`;
   static styles = lightdomStyles;
 
   @property({ type: Array })
@@ -25,8 +26,19 @@ export class XList extends LitElement {
      */
     const root = this.parentNode?.getRootNode();
     if (root) {
+      console.log(root);
       // @ts-ignore
-      adoptStyles(root, [...root.adoptedStyleSheets ?? [], lightdomStyles])
+      // const lightdomStylesStylesheet = lightdomStyles.styleSheet;
+      // // @ts-ignore
+      // const hasAdoptedStylesheet = [...root.adoptedStyleSheets].find(s => {
+      //   if (s.cssRules.length !== lightdomStylesStylesheet.cssRules.length) return false;
+      //   if (s.cssRules[0].cssText !== lightdomStylesStylesheet.cssRules[0].cssText) return false;
+      //   return true;
+      // });
+      // if (!hasAdoptedStylesheet) {
+      // @ts-ignore
+      root.adoptedStyleSheets = [...root.adoptedStyleSheets ?? [], lightdomStyles];
+      // }
     }
   }
 

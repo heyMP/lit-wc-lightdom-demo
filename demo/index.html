@@ -1,19 +1,36 @@
 <!doctype html>
 <html lang="en-GB">
+
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="/src/x-list-lightdom.css" />
   <style>
     body {
       background: #fafafa;
     }
 
-    #demo * + * {
+    #demo *+* {
       margin-top: 1rem;
     }
   </style>
-  <link rel="stylesheet" href="/src/x-list-lightdom.css">
 </head>
+
 <body>
+  <h2> Lightdom version </h2>
+  <x-list>
+    <ul>
+      <li done><a href="#">Step 1</a></li>
+      <li><a href="#">Step 2</a></li>
+      <li><a href="#">Step 3</a></li>
+    </ul>
+  </x-list>
+  <x-list>
+    <ul>
+      <li done><a href="#">Step 1</a></li>
+      <li><a href="#">Step 2</a></li>
+      <li><a href="#">Step 3</a></li>
+    </ul>
+  </x-list>
   <x-list>
     <ul>
       <li done><a href="#">Step 1</a></li>
@@ -25,19 +42,22 @@
   <div id="demo"></div>
 
   <script type="module">
-    import { html, render } from 'lit';
+    import {html, render} from 'lit';
     import '../src/x-list.js';
     import '../src/x-demo-app.js';
 
     const title = 'Hello owc World!';
     render(
       html`
+        <h2> ShadowRoot version </h2>
         <x-list items='["Step 1", "Step 2", "Step 3"]' done='["0", "1"]'></x-list>
 
+        <h2> Nested ShadowRoot version </h2>
         <x-demo-app></x-demo-app>
       `,
       document.querySelector('#demo')
     );
   </script>
 </body>
+
 </html>
