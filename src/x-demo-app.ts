@@ -1,16 +1,18 @@
 import { html, css, LitElement, adoptStyles } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 import './x-list.js';
+import { XList } from './XList.js';
 
 @customElement('x-demo-app')
 export class XDemoApp extends LitElement {
-  static styles = css`
-    :host {
+  static styles = [
+    XList.styles,
+    css`:host {
       display: block;
       background-color: #99d1f6;
       padding: 1rem;
-    }
-  `;
+    }]
+  `];
 
   render() {
     return html`
