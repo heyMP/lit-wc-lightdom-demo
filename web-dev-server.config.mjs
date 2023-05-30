@@ -20,17 +20,13 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
   // appIndex: 'demo/index.html',
   mimeTypes: {
     // serve .module.css files as js
-    '**/*-copy.css': 'css',
+    // '**/*.css': 'css',
   },
 
 
   plugins: [
     /** Use Hot Module Replacement by uncommenting. Requires @open-wc/dev-server-hmr plugin */
     // hmr && hmrPlugin({ exclude: ['**/*/node_modules/**/*'], presets: [presets.litElement] }),
-    litCss({
-      exclude: ['**/*.css'],
-      exclude: ['**/*-copy.css']
-    }),
   ],
 
   // See documentation for all available options
