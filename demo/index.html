@@ -3,9 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <link title="x-list" rel="stylesheet" href="/src/x-list-lightdom.css" />
+  <link title="x-list" rel="stylesheet" href="/src/x-list.css" />
+  <link title="x-list" rel="stylesheet" href="./x-list-tweaks.css" />
   <script>
-    window.esmsInitOptions = {polyfillEnable: ['css-modules', 'json-modules']}
+    window.esmsInitOptions = {polyfillEnable: ['css-modules']}
   </script>
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.3/dist/es-module-shims.js"></script>
   <style>
@@ -13,13 +14,19 @@
       background: #fafafa;
     }
 
-    #demo *+* {
+    #demo * + * {
       margin-top: 1rem;
+    }
+
+    pre {
+      background: rgba(0,0,0,0.1);
+      padding: 1em;
     }
   </style>
 </head>
 
 <body>
+  <h1> Sharing Constructable StyleSheets between lightdom and shadowdom </h1>
   <h2> Lightdom version </h2>
   <x-list>
     <ul>
@@ -31,7 +38,7 @@
   <x-list>
     <ul>
       <li done><a href="#">Step 1</a></li>
-      <li><a href="#">Step 2</a></li>
+      <li done><a href="#">Step 2</a></li>
       <li><a href="#">Step 3</a></li>
     </ul>
   </x-list>
@@ -39,7 +46,7 @@
     <ul>
       <li done><a href="#">Step 1</a></li>
       <li><a href="#">Step 2</a></li>
-      <li><a href="#">Step 3</a></li>
+      <li done><a href="#">Step 3</a></li>
     </ul>
   </x-list>
 
@@ -49,18 +56,58 @@
     import {html, render} from 'lit';
     import '../src/x-list.js';
     import '../src/x-demo-app.js';
+    import lightdomStyles from '../src/x-list.css' assert { type: 'css' };
 
+    console.log(lightdomStyles);
     const title = 'Hello owc World!';
-    render(
-      html`
-        <h2> ShadowRoot version </h2>
-        <x-list items='["Step 1", "Step 2", "Step 3"]' done='["0", "1"]'></x-list>
 
-        <h2> Nested ShadowRoot version </h2>
-        <x-demo-app></x-demo-app>
-      `,
-      document.querySelector('#demo')
-    );
+    const XList = customElements.get('x-list')
+
+    function applyOriginalStylesheet() {
+      XList.styles.replaceSync('');
+      for (const rule of Object.values(lightdomStyles.cssRules)) {
+        XList.styles.insertRule(rule.cssText, XList.styles.cssRules.length);
+        update();
+      }
+    }
+
+    function addCSSRule() {
+        XList.styles.insertRule('li[done] a { background: pink; }', XList.styles.cssRules.length);
+        update();
+    }
+
+    function removeLatestRule() {
+      XList.styles.removeRule(XList.styles.cssRules.length - 1);
+      update();
+    }
+
+    function removeAllRules() {
+      XList.styles.replaceSync('');
+      update();
+    }
+
+    function update() {
+      render(
+        html`
+          <h2> ShadowRoot version </h2>
+          <x-list items='["Step 1", "Step 2", "Step 3"]' done='["0", "1"]'></x-list>
+
+          <h2> Nested ShadowRoot version </h2>
+          <x-demo-app></x-demo-app>
+
+          <div>Document Stylesheets ${document.styleSheets.length}</div>
+          <div>Document Adopted Stylesheets ${document.adoptedStyleSheets.length}</div>
+          <div>XList Rules ${XList.styles.cssRules.length}</div>
+
+          <button @click=${applyOriginalStylesheet}>Apply original stylesheet</button>
+          <button @click=${addCSSRule}>Add CSS Rule</button>
+          <button @click=${removeLatestRule}>Remove CSS Rule</button>
+          <button @click=${removeAllRules}>Empty stylesheet</button>
+        `,
+        document.querySelector('#demo')
+      );
+    }
+    update();
   </script>
 </body>
 

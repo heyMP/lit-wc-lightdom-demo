@@ -4,7 +4,8 @@ x-list,
   background: rgba(0,0,0, 0.1);
 }
 
-x-list :host(x-list) ul,
+x-list ul,
+:host(x-list) ul,
 :host(x-list) ::slotted(ul) {
   padding: 0;
   margin: 0;
@@ -34,6 +35,11 @@ x-list a::before,
 x-list [done] a,
 :host(x-list) [done] a {
   color: green !important;
+}
+
+x-list :not([done]) a::before,
+:host(x-list) :not([done]) a::before {
+  content: '☑️';
 }
 
 x-list [done] a::before,

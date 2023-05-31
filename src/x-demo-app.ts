@@ -7,11 +7,13 @@ import { XList } from './XList.js';
 export class XDemoApp extends LitElement {
   static styles = [
     XList.styles,
-    css`:host {
-      display: block;
-      background-color: #99d1f6;
-      padding: 1rem;
-    }]
+    css`
+      :host {
+        display: block;
+        background-color: #99d1f6;
+        padding: 1rem;
+      }
+    ]
   `];
 
   render() {
