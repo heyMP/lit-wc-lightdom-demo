@@ -1,3 +1,4 @@
-a {
-  background: purple;
+x-list li[done] a:before,
+:host(x-list) li[done] a:before {
+  content: '🎉';
 }
