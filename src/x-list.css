@@ -2,6 +2,7 @@ x-list,
 :host(x-list) {
   display: flex;
   background: rgba(0,0,0, 0.1);
+  border-radius: 4px;
 }
 
 x-list ul,
@@ -23,7 +24,7 @@ x-list li,
 
 x-list a,
 :host(x-list) a {
-  color: black !important;
+  color: black;
 }
 
 x-list a::before,
@@ -34,7 +35,7 @@ x-list a::before,
 
 x-list [done] a,
 :host(x-list) [done] a {
-  color: green !important;
+  color: green;
 }
 
 x-list :not([done]) a::before,

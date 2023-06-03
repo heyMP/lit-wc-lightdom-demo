@@ -3,111 +3,146 @@
 
 <head>
   <meta charset="utf-8">
-  <link title="x-list" rel="stylesheet" href="/src/x-list.css" />
-  <link title="x-list" rel="stylesheet" href="./x-list-tweaks.css" />
+  <!-- <link rel="stylesheet" href="/src/x-list.css" /> -->
+  <!-- <link rel="stylesheet" href="./global-tweaks.css" /> -->
+  <link tagname="x-list" rel="stylesheet" href="/src/x-list.css" />
+  <link tagname="x-list" rel="stylesheet" href="./global-tweaks.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <!--
+    JSPM Generator Import Map
+    Edit URL: https://generator.jspm.io/#U2VhYGBmD80rySzJSU1hyMkscTDSM9czRbD0U1KT84sSS/KLivWyihlKinMyk4AypnpGAF9h9Q48AA
+  -->
+  <script type="importmap">
+  {
+    "imports": {
+      "lit": "https://ga.jspm.io/npm:lit@2.7.5/index.js",
+      "lit/decorators.js": "https://ga.jspm.io/npm:lit@2.7.5/decorators.js",
+      "tslib": "https://ga.jspm.io/npm:tslib@2.5.2/tslib.es6.js"
+    },
+    "scopes": {
+      "https://ga.jspm.io/": {
+        "@lit/reactive-element": "https://ga.jspm.io/npm:@lit/reactive-element@1.6.2/development/reactive-element.js",
+        "@lit/reactive-element/decorators/": "https://ga.jspm.io/npm:@lit/reactive-element@1.6.2/development/decorators/",
+        "lit-element/lit-element.js": "https://ga.jspm.io/npm:lit-element@3.3.2/development/lit-element.js",
+        "lit-html": "https://ga.jspm.io/npm:lit-html@2.7.4/development/lit-html.js",
+        "lit-html/is-server.js": "https://ga.jspm.io/npm:lit-html@2.7.4/development/is-server.js"
+      }
+    }
+  }
+  </script>
   <script>
     window.esmsInitOptions = {polyfillEnable: ['css-modules']}
   </script>
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.3/dist/es-module-shims.js"></script>
-  <style>
-    body {
-      background: #fafafa;
-    }
-
-    #demo * + * {
-      margin-top: 1rem;
-    }
-
-    pre {
-      background: rgba(0,0,0,0.1);
-      padding: 1em;
-    }
-  </style>
 </head>
 
 <body>
   <h1> Sharing Constructable StyleSheets between lightdom and shadowdom </h1>
-  <h2> Lightdom version </h2>
-  <x-list>
-    <ul>
-      <li done><a href="#">Step 1</a></li>
-      <li><a href="#">Step 2</a></li>
-      <li><a href="#">Step 3</a></li>
-    </ul>
-  </x-list>
-  <x-list>
-    <ul>
-      <li done><a href="#">Step 1</a></li>
-      <li done><a href="#">Step 2</a></li>
-      <li><a href="#">Step 3</a></li>
-    </ul>
-  </x-list>
-  <x-list>
-    <ul>
-      <li done><a href="#">Step 1</a></li>
-      <li><a href="#">Step 2</a></li>
-      <li done><a href="#">Step 3</a></li>
-    </ul>
-  </x-list>
+  <p>This page is an exploration in how we can declaritvely share stylesheets between lightdom and shadowdom to solve
+    the age old problem of Flash of Unstyled Content (FOUC) with web components.</p>
+  <div id="demo">
+    <h2> Showing the problem </h2>
+    <p>
+      Our web components are fantastic for packaging up our styles and having them automatically added to the shadowroot
+      when the component is initialized.
+      Unfortunitely, that means we need to wait for our compoent definition to registered and the browser initizilize
+      the component before we see any of our
+      styles. Even if the process happens quickly the user would still see a breif flash of unstyled content.
+    </p>
+    <iframe src="step01.html" scrolling="no" height="80"></iframe>
+    <h3> Mitigating the problem </h3>
+    <p>To mitiage FOUC we should be able to load the same CSS that is included with the component, right? Well, sort of.
+      The styles inside of
+      our web comopnent are automatically scoped to its shadowroot. This means that we can write very generic selectors
+      such as:
+    </p>
+    <code-sample id="demo-2" type="css">
+      <template>
+        a {
+          background: green;
+        }
 
-  <div id="demo"></div>
+      </template>
+    </code-sample>
 
+    <p>Obviously, that css rule isn't going to work in the lightdom as it will trample over existing styles. So let's
+        change the selector a bit.</p>
+
+    <code-sample id="demo-2" type="css">
+      <template>
+        :host(x-list) a {
+          background: green;
+        }
+
+      </template>
+    </code-sample>
+
+    <p>We can scope the css rule to the specific web component using the :host() pseudo-class function which allows you to 
+      target a compound selector.</p>
+
+    <p>Now that we have scoped the css to our specific element's shadowroot, let's see if we can also make it useful styling our lightdom.</p>
+
+    <code-sample id="demo-2" type="css">
+      <template>
+        x-list a,
+        :host(x-list)  a {
+          background: green;
+        }
+
+      </template>
+    </code-sample>
+
+    <p>We're now scopping our css to the tag name in addition to the shadowroot selector which will work well when we have to load the css into the lightdom.
+      With that, the FOUC is gone. 😎</p>
+
+    <iframe src="step02.html" scrolling="no" height="80"></iframe>
+
+    <p>You might be wondering, "how can we load a css file into our web component?"  Well, we have two options: build time or run time.</p>
+
+    <p>With build time, we can use a plugin like <a href="https://github.com/bennypowers/lit-css">lit-css</a> which will convert a
+        standard css file to a <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet">Constructable StyleSheet</a> within a javascript file.</p>
+
+    <code-sample type="css">
+      <template>
+import { css } from 'lit';
+export default css`:host { display: block; }`;
+
+      </template>
+    </code-sample>
+
+    <p>With runtime(used in this demo), we can leverage asset assertions.  This is a new standard that enables javscript files to import .css files directly
+        into .js files.<p>
+
+    <code-sample type="js">
+      <template>
+import lightdomStyles from './x-list.css' assert { type: 'css' };
+
+      </template>
+    </code-sample>
+
+    <p>There's also an incredibly handy shim <a href="https://github.com/guybedford/es-module-shims">es-module-shims</a> that will help enable this feature in Firefox and Safari.<p>
+
+    <h3> Lightdom version with no ligthdom css </h3>
+    <h3> Lightdom version with lightdom css (Reload the page quickly to see there is no flash.)</h3>
+
+    <h2> Lightdom version </h2>
+    <x-list>
+      <ul>
+        <li done><a href="#">Step 1</a></li>
+        <li><a href="#">Step 2</a></li>
+        <li><a href="#">Step 3</a></li>
+      </ul>
+    </x-list>
+
+    <h2> ShadowRoot version</h2>
+    <x-list items='["Step 1", "Step 2", "Step 3"]' done='["0", "1"]'></x-list>
+    <x-demo-app></x-demo-app>
+  </div>
   <script type="module">
-    import {html, render} from 'lit';
-    import '../src/x-list.js';
+    import {XList} from '../src/x-list.js';
     import '../src/x-demo-app.js';
-    import lightdomStyles from '../src/x-list.css' assert { type: 'css' };
-
-    console.log(lightdomStyles);
-    const title = 'Hello owc World!';
-
-    const XList = customElements.get('x-list')
-
-    function applyOriginalStylesheet() {
-      XList.styles.replaceSync('');
-      for (const rule of Object.values(lightdomStyles.cssRules)) {
-        XList.styles.insertRule(rule.cssText, XList.styles.cssRules.length);
-        update();
-      }
-    }
-
-    function addCSSRule() {
-        XList.styles.insertRule('li[done] a { background: pink; }', XList.styles.cssRules.length);
-        update();
-    }
-
-    function removeLatestRule() {
-      XList.styles.removeRule(XList.styles.cssRules.length - 1);
-      update();
-    }
-
-    function removeAllRules() {
-      XList.styles.replaceSync('');
-      update();
-    }
-
-    function update() {
-      render(
-        html`
-          <h2> ShadowRoot version </h2>
-          <x-list items='["Step 1", "Step 2", "Step 3"]' done='["0", "1"]'></x-list>
-
-          <h2> Nested ShadowRoot version </h2>
-          <x-demo-app></x-demo-app>
-
-          <div>Document Stylesheets ${document.styleSheets.length}</div>
-          <div>Document Adopted Stylesheets ${document.adoptedStyleSheets.length}</div>
-          <div>XList Rules ${XList.styles.cssRules.length}</div>
-
-          <button @click=${applyOriginalStylesheet}>Apply original stylesheet</button>
-          <button @click=${addCSSRule}>Add CSS Rule</button>
-          <button @click=${removeLatestRule}>Remove CSS Rule</button>
-          <button @click=${removeAllRules}>Empty stylesheet</button>
-        `,
-        document.querySelector('#demo')
-      );
-    }
-    update();
+    import 'https://unpkg.com/@lrnwebcomponents/code-sample/code-sample?module';
+    customElements.define('x-list', XList);
   </script>
 </body>
 
