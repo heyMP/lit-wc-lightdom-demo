@@ -2,8 +2,12 @@
   box-sizing: border-box;
 }
 
+a {
+  color: purple;
+}
+
 body {
-  max-width: 600px;
+  max-width: 60rem;
   margin: auto;
   margin-bottom: 10em;
   font-size: 18px;

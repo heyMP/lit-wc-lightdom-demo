@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="../src/x-list.css" />
   <link rel="stylesheet" href="./styles.css" />
+  <link tagname="x-list" rel="stylesheet" href="../src/x-list.css" />
   <script>
     window.esmsInitOptions = {polyfillEnable: ['css-modules']}
   </script>
@@ -27,7 +27,6 @@
   }
   </script>
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.3/dist/es-module-shims.js"></script>
-  <script src="scripts.js"></script>
 </head>
 
 <body>
@@ -43,9 +42,10 @@
     import lightdomStyles from '../src/x-list.css' assert {type: 'css'};
 
     class XListV1 extends XList {
-      styles = lightdomStyles;
     }
     customElements.define('x-list', XListV1);
+
+    console.log(Array.from(document.styleSheets).filter(i => !i.disabled).length, document.adoptedStyleSheets.length)
   </script>
 </body>
 

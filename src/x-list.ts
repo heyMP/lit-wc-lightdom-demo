@@ -1,12 +1,17 @@
 import { html, LitElement, PropertyValues } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-import lightdomStyles from './x-list.css' assert { type: 'css' };
+import styles from './x-list.css' assert { type: 'css' };
 import { adoptLightdomStyles } from './lib/adoptLightdomStyles.js';
 
 export class XList extends LitElement {
   static tag = `x-list`;
 
-  static styles = adoptLightdomStyles('x-list', lightdomStyles, { sync: true });
+  static styles = [styles];
+
+  constructor() {
+    super();
+    adoptLightdomStyles(this, 'x-list', styles, { adopt: true, sync: true, 'open-stylable-ish': true });
+  }
 
   @property({ type: Array })
   public items = [];

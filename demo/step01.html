@@ -26,7 +26,6 @@
   }
   </script>
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.3/dist/es-module-shims.js"></script>
-  <script src="scripts.js"></script>
 </head>
 
 <body>
@@ -39,10 +38,12 @@
   </x-list>
   <script type="module">
     import {XList} from '../src/x-list.js';
-    import lightdomStyles from '../src/x-list.css' assert {type: 'css'};
+    // import lightdomStyles from '../src/x-list.css' assert {type: 'css'};
 
     class XListV1 extends XList {
-      styles = lightdomStyles;
+      // static get styles() {
+      //   return [];
+      // }
     }
     customElements.define('x-list', XListV1);
   </script>

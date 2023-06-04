@@ -1,49 +1,49 @@
-x-list,
-:host(x-list) {
-  display: flex;
-  background: rgba(0,0,0, 0.1);
-  border-radius: 4px;
-}
+  x-list,
+  :host(x-list) {
+    display: flex;
+    background: rgba(0,0,0, 0.1);
+    border-radius: 4px;
+  }
 
-x-list ul,
-:host(x-list) ul,
-:host(x-list) ::slotted(ul) {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  list-style-type: none;
-  align-items: center;
-}
+  x-list ul,
+  :host(x-list) ul,
+  :host(x-list) ::slotted(ul) {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    list-style-type: none;
+    align-items: center;
+  }
 
-x-list li,
-:host(x-list) li {
-  display: contents;
-}
+  x-list li,
+  :host(x-list) li {
+    display: contents;
+  }
 
-x-list a,
-:host(x-list) a {
-  color: black;
-}
+  x-list a,
+  :host(x-list) a {
+    color: black;
+  }
 
-x-list a::before,
-:host(x-list) a::before {
-  display: inline-block;
-  padding-right: .5rem;
-}
+  x-list a::before,
+  :host(x-list) a::before {
+    display: inline-block;
+    padding-right: .5rem;
+  }
 
-x-list [done] a,
-:host(x-list) [done] a {
-  color: green;
-}
+  x-list [done] a,
+  :host(x-list) [done] a {
+    color: green;
+  }
 
-x-list :not([done]) a::before,
-:host(x-list) :not([done]) a::before {
-  content: '☑️';
-}
+  x-list :not([done]) a::before,
+  :host(x-list) :not([done]) a::before {
+    content: '☑️';
+  }
 
-x-list [done] a::before,
-:host(x-list) [done] a::before {
-  content: '✅';
-}
+  x-list [done] a::before,
+  :host(x-list) [done] a::before {
+    content: '✅';
+  }

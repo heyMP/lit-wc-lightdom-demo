@@ -20,26 +20,20 @@ export class XDemoApp extends LitElement {
     ]
   `];
 
-  applyOriginalStylesheet() {
-    XList.styles.replaceSync('');
-    for (const rule of Object.values(lightdomStyles.cssRules)) {
-      XList.styles.insertRule(rule.cssText, XList.styles.cssRules.length);
-    }
-    this.requestUpdate();
-  }
-
   addCSSRule() {
-    XList.styles.insertRule('li[done] a { background: pink; }', XList.styles.cssRules.length);
+    XList.styles.at(0)?.insertRule('li[done] a { background: pink; }', XList.styles.at(0)?.cssRules.length);
     this.requestUpdate();
   }
 
   removeLatestRule() {
-    XList.styles.removeRule(XList.styles.cssRules.length - 1);
+    if (!XList.styles.at(0)) return;
+    const removeIndex = XList.styles.at(0)?.cssRules.length ?? 0;
+    XList.styles.at(0)?.deleteRule(removeIndex);
     this.requestUpdate();
   }
 
   removeAllRules() {
-    XList.styles.replaceSync('');
+    XList.styles.at(0)?.replaceSync('');
     this.requestUpdate();
   }
 
@@ -62,9 +56,8 @@ export class XDemoApp extends LitElement {
       <div>Active Document Stylesheets ${Array.from(document.styleSheets).filter(i => !i.disabled).length}</div>
       <div>Inactive Document Stylesheets ${Array.from(document.styleSheets).filter(i => i.disabled).length}</div>
       <div>Document Adopted Stylesheets ${document.adoptedStyleSheets.length}</div>
-      <div>XList Rules ${XList.styles.cssRules.length}</div>
+      <div>XList Rules ${XList.styles.at(0)?.cssRules?.length}</div>
 
-      <button @click=${this.applyOriginalStylesheet}>Apply original stylesheet</button>
       <button @click=${this.addCSSRule}>Add CSS Rule</button>
       <button @click=${this.removeLatestRule}>Remove CSS Rule</button>
       <button @click=${this.removeAllRules}>Empty stylesheet</button>
