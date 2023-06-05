@@ -24,7 +24,7 @@
 /**/*.js
 /**/*.js.map
 tsconfig.tsbuildinfo
-!/types.d.ts
+!@types
 
 !rollup.config.js
 
