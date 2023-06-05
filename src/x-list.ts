@@ -3,10 +3,6 @@ import { property, customElement } from 'lit/decorators.js';
 import styles from './x-list.css' assert { type: 'css' };
 import { adoptLightdomStyles } from './lib/adoptLightdomStyles.js';
 
-declare module '*.css' {
-  const stylesheet: CSSStyleSheet;
-}
-
 export class XList extends LitElement {
   static tag = `x-list`;
 
