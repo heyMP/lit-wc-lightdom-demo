@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="./styles.css" />
-  <link tagname="x-list" rel="stylesheet" href="../src/x-list.css" />
+  <link rel="stylesheet" href="/demo/styles.css" />
+  <link tagname="x-list" rel="stylesheet" href="/src/x-list.css" />
   <script>
     window.esmsInitOptions = {polyfillEnable: ['css-modules']}
   </script>
@@ -38,8 +38,8 @@
     </ul>
   </x-list>
   <script type="module">
-    import {XList} from '../src/x-list.js';
-    import lightdomStyles from '../src/x-list.css' assert {type: 'css'};
+    import {XList} from '/src/x-list.js';
+    import lightdomStyles from '/src/x-list.css' assert {type: 'css'};
 
     class XListV1 extends XList {
     }
