@@ -28,7 +28,7 @@ export class XDemoApp extends LitElement {
   removeLatestRule() {
     if (!XList.styles.at(0)) return;
     const removeIndex = XList.styles.at(0)?.cssRules.length ?? 0;
-    XList.styles.at(0)?.deleteRule(removeIndex);
+    XList.styles.at(0)?.deleteRule(removeIndex - 1);
     this.requestUpdate();
   }
 
