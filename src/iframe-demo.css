@@ -1,0 +1,31 @@
+:host {
+  --action-button-size: 16px;
+}
+
+[part~="base"] {
+  position: relative;
+  display: inline-block;
+}
+
+[part~="actions"] {
+  display: flex;
+  justify-content: flex-end;
+  width: fit-content;
+  position: absolute;
+  right: calc((var(--action-button-size) * -1) / 2);
+  top: calc((var(--action-button-size) * -1) / 2);
+}
+
+[part~="action-button"] {
+  /* background: white; */
+  box-shadow: 0 0 8px rgba(0,0,0, .5);
+  width: var(--action-button-size);
+  height: var(--action-button-size);
+  border-radius: 50%;
+  padding: calc(var(--action-button-size) * 0.8);
+}
+
+[part~="action-button"] svg {
+  width: var(--action-button-size);
+  height: var(--action-button-size);
+}

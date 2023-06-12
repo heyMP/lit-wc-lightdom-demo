@@ -14,6 +14,8 @@
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
   },
   "dependencies": {
+    "@patternfly/elements": "^2.2.0",
+    "@patternfly/icons": "^1.0.2",
     "lit": "^2.0.2"
   },
   "devDependencies": {

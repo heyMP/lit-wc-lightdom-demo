@@ -4,5 +4,5 @@ x-list li[done] a:before,
 }
 
 :host(x-demo-app) .list {
-  background: pink;
+  background-image: var(--gradient-5)
 }

@@ -32,15 +32,10 @@
 </head>
 
 <body>
-  <x-list>
-    <ul>
-      <li done><a href="#">Step 1</a></li>
-      <li><a href="#">Step 2</a></li>
-      <li><a href="#">Step 3</a></li>
-    </ul>
-  </x-list>
+  <x-list items='["Step 1", "Step 2", "Step 3"]' done='["0", "1"]'></x-list>
   <script type="module">
     import {XList} from '/src/x-list.js';
+    import lightdomStyles from '/src/x-list.css' assert {type: 'css'};
 
     class XListV1 extends XList {
     }

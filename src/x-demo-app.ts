@@ -1,24 +1,17 @@
 import { html, css, LitElement, adoptStyles } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-import './x-list.js';
 import { XList } from './x-list.js';
-import lightdomStyles from './x-list.css' assert {type: 'css'};
+import { normalizeStyles, buttonStyles } from './styles.js';
+import styles from './x-demo-app.css' assert {type: 'css'};
 
 @customElement('x-demo-app')
 export class XDemoApp extends LitElement {
   static styles = [
+    normalizeStyles,
+    buttonStyles,
     XList.styles,
-    css`
-      :host {
-        display: contents;
-      }
-      .list {
-        display: block;
-        background-color: #99d1f6;
-        padding: 1rem;
-      }
-    ]
-  `];
+    styles,
+  ];
 
   addCSSRule() {
     XList.styles.at(0)?.insertRule('li[done] a { background: pink; }', XList.styles.at(0)?.cssRules.length);

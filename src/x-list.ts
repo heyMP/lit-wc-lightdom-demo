@@ -1,12 +1,13 @@
 import { html, LitElement, PropertyValues } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
+import { normalizeStyles } from './styles.js';
 import styles from './x-list.css' assert { type: 'css' };
 import { adoptLightdomStyles } from './lib/adoptLightdomStyles.js';
 
 export class XList extends LitElement {
   static tag = `x-list`;
 
-  static styles = [styles];
+  static styles = [normalizeStyles, styles];
 
   constructor() {
     super();

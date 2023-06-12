@@ -1,0 +1,8 @@
+:host {
+  display: block;
+}
+.list {
+  display: block;
+  background-color: #99d1f6;
+  padding: 1rem;
+}

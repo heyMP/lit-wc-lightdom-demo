@@ -1,4 +1,4 @@
-export function adoptLightdomStyles(ref: HTMLElement, tagname: string, styleSheet: CSSStyleSheet, options?: { 'open-stylable-ish'?: boolean, sync?: boolean, adopt?: boolean }) {
+export async function adoptLightdomStyles(ref: HTMLElement, tagname: string, styleSheet: CSSStyleSheet, options?: { 'open-stylable-ish'?: boolean, sync?: boolean, adopt?: boolean }) {
   const lightdomStyleSheets = Array.from(document.styleSheets)
 
   let adopted = false;
