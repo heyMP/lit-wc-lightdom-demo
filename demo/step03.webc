@@ -1,0 +1,29 @@
+---
+layout: slide.liquid
+tags: slide
+---
+
+<link webc:keep tagname="x-list" rel="stylesheet" href="/src/x-list.css" />
+
+<p>We're now scopping our css to the tag name in addition to the shadowroot selector which will work well when we
+  have to load the css into the lightdom.
+  With that, the FOUC is gone. 😎</p>
+
+<x-list>
+  <ul>
+    <li done><a href="#">Step 1</a></li>
+    <li><a href="#">Step 2</a></li>
+    <li><a href="#">Step 3</a></li>
+  </ul>
+</x-list>
+
+<script webc:keep type="module">
+  import {XList} from '/src/x-list.js';
+  import lightdomStyles from '/src/x-list.css' assert {type: 'css'};
+
+  class XListV1 extends XList {
+  }
+  customElements.define('x-list', XListV1);
+
+  console.log(Array.from(document.styleSheets).filter(i => !i.disabled).length, document.adoptedStyleSheets.length)
+</script>

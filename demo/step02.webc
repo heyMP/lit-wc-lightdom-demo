@@ -1,0 +1,47 @@
+---
+layout: slide.liquid
+tags: slide
+---
+
+<link webc:keep rel="stylesheet" href="/src/x-list.css" />
+<h3> Mitigating the problem </h3>
+<p>To mitiage FOUC we should be able to load the same CSS that is included with the component, right? Well, sort of.
+  The styles inside of
+  our web comopnent are automatically scoped to its shadowroot. This means that we can write very generic selectors
+  such as:
+</p>
+<code-block id="demo-2" type="css">
+  <template>
+    a {
+    background: green;
+    }
+  </template>
+</code-block>
+
+<p>Obviously, that css rule isn't going to work in the lightdom as it will trample over existing styles. So let's
+  change the selector a bit.</p>
+
+<code-block id="demo-2" type="css">
+  <template>
+    :host(x-list) a {
+    background: green;
+    }
+  </template>
+</code-block>
+
+<p>We can scope the css rule to the specific web component using the :host() pseudo-class function which allows you
+  to
+  target a compound selector.</p>
+
+<p>Now that we have scoped the css to our specific element's shadowroot, let's see if we can also make it useful
+  styling our lightdom.</p>
+
+<code-block type="css">
+  <template>
+    x-list a,
+    :host(x-list) a {
+    background: green;
+    }
+  </template>
+</code-block>
+

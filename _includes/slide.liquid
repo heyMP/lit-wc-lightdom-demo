@@ -1,0 +1,22 @@
+---
+layout: layout.html
+---
+
+{{content}}
+
+{% assign previousPost = collections.customSlides | getPreviousCollectionItem %}
+{% assign nextPost = collections.customSlides | getNextCollectionItem %}
+
+{% if previousPost %}
+  <a href="{{previousPost.url}}">Previous</a>
+{% endif %}
+
+{% if nextPost %}
+  <a href="{{nextPost.url}}">Next</a>
+{% endif %}
+
+<script webc:keep type="module" src="./demo/scripts.js"></script>
+<script webc:keep type="module">
+  import '/src/code-block.js';
+</script>
+

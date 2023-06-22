@@ -1,0 +1,12 @@
+---
+layout: slide.liquid
+tags: slide
+---
+
+<x-list items='["Step 1", "Step 2", "Step 3"]' done='["0", "1"]'></x-list>
+
+<script webc:keep type="module">
+  import {XList} from '/src/x-list.js';
+
+  customElements.define('x-list', XList);
+</script>

@@ -3,19 +3,25 @@
 
 <head>
   <meta charset="utf-8">
+  <!-- <link rel="stylesheet" href="/src/x-list.css" /> -->
+  <!-- <link rel="stylesheet" href="./global-tweaks.css" /> -->
   <link rel="stylesheet" href="/styles/normalize.css" />
   <link rel="stylesheet" href="/styles/buttons.css" />
   <link rel="stylesheet" href="/demo/styles.css" />
-  <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.3/dist/es-module-shims.js"></script>
-  <script>
-    window.esmsInitOptions = {polyfillEnable: ['css-modules']}
-  </script>
-  <script type="importmap">
+  <!--
+    JSPM Generator Import Map
+    Edit URL: https://generator.jspm.io/#U2VhYGCzD80rySzJSU1hcCjKSCnWT81JzU3NKyl2MNQz0DNkyMkscTDSM9czRbD0U1KT84sSS/KLivWyirGK6yeXFpfk5+pCDcOprKAovyC1qKQSpKCkOCczCajEVM8YANSNRw6ZAA
+  -->
+ <script type="importmap">
   {
     "imports": {
+      "@patternfly/icons/fas/redo-alt.js": "https://ga.jspm.io/npm:@patternfly/icons@1.0.2/fas/redo-alt.js",
+      "@rhds/elements": "https://ga.jspm.io/npm:@rhds/elements@1.0.1/rhds.min.js",
       "lit": "https://ga.jspm.io/npm:lit@2.7.5/index.js",
       "lit/decorators.js": "https://ga.jspm.io/npm:lit@2.7.5/decorators.js",
-      "tslib": "https://ga.jspm.io/npm:tslib@2.5.2/tslib.es6.js"
+      "lit/decorators/custom-element.js": "https://ga.jspm.io/npm:lit@2.7.5/decorators/custom-element.js",
+      "lit/decorators/property.js": "https://ga.jspm.io/npm:lit@2.7.5/decorators/property.js",
+      "tslib": "https://ga.jspm.io/npm:tslib@2.5.3/tslib.es6.mjs"
     },
     "scopes": {
       "https://ga.jspm.io/": {
@@ -28,24 +34,16 @@
     }
   }
   </script>
+
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.3/dist/es-module-shims.js"></script>
+  <script>
+    window.esmsInitOptions = {polyfillEnable: ['css-modules']}
+  </script>
+  <script src="https://unpkg.com/shiki@0.14.2/dist/index.unpkg.iife.js"></script>
 </head>
 
 <body>
-  <x-list>
-    <ul>
-      <li done><a href="#">Step 1</a></li>
-      <li><a href="#">Step 2</a></li>
-      <li><a href="#">Step 3</a></li>
-    </ul>
-  </x-list>
-  <script type="module">
-    import {XList} from '/src/x-list.js';
-
-    class XListV1 extends XList {
-    }
-    customElements.define('x-list', XListV1);
-  </script>
+  {{ content }}
 </body>
 
 </html>

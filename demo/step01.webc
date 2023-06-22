@@ -1,0 +1,32 @@
+---
+layout: slide.liquid
+tags: slide
+---
+
+  <h1> Sharing Constructable StyleSheets between lightdom and shadowdom </h1>
+  <p>This page is an exploration in how we can declaritvely share stylesheets between lightdom and shadowdom to solve
+    the age old problem of Flash of Unstyled Content (FOUC) with web components.</p>
+  <div id="demo">
+    <h2> Showing the problem </h2>
+    <p>
+      Our web components are fantastic for packaging up our styles and having them automatically added to the shadowroot
+      when the component is initialized.
+      Unfortunitely, that means we need to wait for our compoent definition to registered and the browser initizilize
+      the component before we see any of our
+      styles. Even if the process happens quickly the user would still see a breif flash of unstyled content.
+    </p>
+<x-list>
+  <ul>
+    <li done><a href="#">Step 1</a></li>
+    <li><a href="#">Step 2</a></li>
+    <li><a href="#">Step 3</a></li>
+  </ul>
+</x-list>
+
+<script webc:keep type="module">
+  import {XList} from '/src/x-list.js';
+
+  class XListV1 extends XList {
+  }
+  customElements.define('x-list', XListV1);
+</script>

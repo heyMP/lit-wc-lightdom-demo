@@ -5,16 +5,24 @@ import ReloadArrow from '@patternfly/icons/fas/redo-alt.js';
 import styles from './iframe-demo.css' assert { type: 'css' };
 import { buttonStyles } from './styles.js';
 
+
 @customElement('iframe-demo')
 export class IframeDemo extends LitElement {
   static styles = [buttonStyles, styles];
+
+  #reloadArrow: any; 
+
+  constructor() {
+    super();
+    this.#reloadArrow = ReloadArrow.cloneNode(true);
+  }
 
   render() {
     return html`
       <div part="base">
         <div part="actions">
           <button part="action-button" @click=${this.reload}>
-            ${svg`${ReloadArrow}`}
+            ${svg`${this.#reloadArrow}`}
           </button>
         </div>
         <slot></slot>

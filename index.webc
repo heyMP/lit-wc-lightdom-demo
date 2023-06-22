@@ -1,0 +1,51 @@
+---
+layout: slide.liquid
+tags: slide
+---
+
+    <div id="output"></div>
+    <iframe-demo>
+      <iframe src="/demo/step01" scrolling="no" height="80"></iframe>
+    </iframe-demo>
+
+    <iframe-demo>
+      <iframe src="/demo/step02" scrolling="no" height="80"></iframe>
+    </iframe-demo>
+
+    <p>You might be wondering, "how can we load a css file into our web component?" Well, we have two options: build
+      time or run time.</p>
+
+    <p>With build time, we can use a plugin like <a href="https://github.com/bennypowers/lit-css">lit-css</a> which will
+      convert a
+      standard css file to a <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet">Constructable
+        StyleSheet</a> within a javascript file.</p>
+
+
+    <code-block type="css">
+      <template>
+        import { css } from 'lit';
+        export default css`:host { display: block; }`;
+      </template>
+    </code-block>
+
+    <p>With runtime(used in this demo), we can leverage asset assertions. This is a new standard that enables javscript
+      files to import .css files directly
+      into .js files.
+    <p>
+
+      <code-block type="js">
+        <template>
+          import lightdomStyles from './x-list.css' assert { type: 'css' };
+        </template>
+      </code-block>
+
+    <p>There's also an incredibly handy shim <a href="https://github.com/guybedford/es-module-shims">es-module-shims</a>
+      that will help enable this feature in Firefox and Safari.
+    <p>
+
+    <iframe-demo>
+      <iframe src="/demo/step03" scrolling="no" height="80"></iframe>
+    </iframe-demo>
+
+    <x-demo-app></x-demo-app>
+  </div>
