@@ -31,3 +31,4 @@ tsconfig.tsbuildinfo
 storybook-static
 custom-elements.json
 
+!.eleventy.js
